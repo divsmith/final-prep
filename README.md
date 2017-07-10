@@ -8,7 +8,7 @@ Final Project Seed README.md
 |-- final
 |  |-- src
 |      |-- public
-|-- vendor
+|      |-- vendor
 ```
 
 ### Instructions
