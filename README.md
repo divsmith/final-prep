@@ -13,11 +13,11 @@ Final Project Seed README.md
 
 ### Instructions
 
-- `$ composer require slim/slim "^3.0"`
-- `$ touch .gitignore`
-- `$ mkdir -p src/public/`
+- `$ git clone https://github.com/wsu-cs3620/final.git`
 - `$ cd src/public/`
 - `$ vim info.php` just look over the file
 - `$ vim index.php` just look over the file
 - `$ cd ../..`
-- `$ docker-compose up -d`
+- `$ ./start-webapp.sh`
+- Go to http://localhost/hello/world
+- `$ ./stop-webapp.sh` when complete
