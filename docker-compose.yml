@@ -2,13 +2,13 @@ version: "2"
 
 services:
     app-server:
-        image: shito/alpine-nginx-php7:edge
+        image: wsucs3620/alpine-nginx-php7:latest
         ports:
             - 80:80
             - 443:443
         volumes:
-            - /Users/donbstringham/Sandbox/wsu-cs3620/final/src/public:/usr/share/nginx/html
-            - /Users/donbstringham/Sandbox/wsu-cs3620/final/src:/usr/share/nginx
+            - /Users/donbstringham/Sandbox/wsucs3620/final/src/public:/usr/share/nginx/html
+            - /Users/donbstringham/Sandbox/wsucs3620/final/src:/usr/share/nginx
         links:
             - mysql:mysql
             - redis:redis
@@ -17,11 +17,11 @@ services:
             - redis
 
     mysql:
-        image: shito/alpine-mariadb:edge
+        image: wsucs3620/alpine-mysql:latest
         ports:
             - 3306:3306
         volumes:
-            - /Users/donbstringham/Sandbox/wsu-cs3620/data/mysql:/data
+            - /Users/donbstringham/Sandbox/wsucs3620/data/mysql:/data
         environment:
             - MYSQL_ROOT_PASSWORD=changeme
             - MYSQL_DATABASE=cs3620
@@ -29,9 +29,8 @@ services:
             - MYSQL_PASSWORD=bar
 
     redis:
-        image: shito/alpine-redis:edge
+        image: wsucs3620/alpine-redis:latest
         ports:
             - 6379:6379
         volumes:
-            - /Users/donbstringham/Sandbox/wsu-cs3620/data/redis:/data
-            
+            - /Users/donbstringham/Sandbox/wsucs3620/data/redis:/data
