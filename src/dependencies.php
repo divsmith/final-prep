@@ -14,6 +14,12 @@ $dic['db'] = function($dic) use ($conf) {
     return $pdo;
 };
 
+$dic['new_task'] = function($dic) use ($rowSet) {
+    $o = new Domain/Task();
+    $o->ID($rowSet['id'])->Task($rowSet['task']);
+    return $o;
+}
+
 $dic['foo'] = function($dic) {
     return 'bar';
 };

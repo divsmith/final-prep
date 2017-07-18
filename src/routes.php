@@ -24,11 +24,18 @@ $app->get('/todos/{id}', function ($req, $resp, $args) {
 });
 
 $app->get('/todos/search/{target}', function ($req, $resp, $args){
-    return $resp->withStatus(501);
+    $st = $this->db->prepare("SELECT * FROM tasks ORDER BY task");
+    $st->execute();
+    $todos = $st->fetchAll();
+    foreach($todos as $todo) {
+        if (strpos($todo['task'], $args['target']) != FALSE) {
+            return $resp->withJson($todo); // Only returns the first one
+        } 
+    }
+    return $resp->withStatus(404);
 });
 
 $app->post('/todos', function ($req, $resp, $args) {
-    //return $resp->withStatus(501);
     $body = $req->getBody();
     $json = json_decode($body, true);
     if ($json === NULL) {
@@ -37,8 +44,22 @@ $app->post('/todos', function ($req, $resp, $args) {
     $sql = "INSERT INTO tasks (task, status) VALUES (:task, :status)";
     $st = $this->db->prepare($sql);
     $st->bindParam(":task", $json['task']);
-    $st->bindParam(":status", $json['task']);
+    $st->bindParam(":status", $json['status']);
     $st->execute();
-    $resp->withStatus(201);
-    return $resp;
+    $id = $this->db->lastInsertId();
+    $uri = $req->getRequestTarget(); 
+    $url = $req->getUri()->getScheme() . "://" . $req->getUri()->getHost() . $uri . "/" . $id;
+    $nResp = $resp->withHeader('Location', $url);
+    return $nResp->withStatus(201);
+});
+
+$app->delete('/todos/{target}', function ($req, $resp, $args) {
+    $sql = "DELETE FROM tasks WHERE id=:id";
+    $st = $this->db->prepare($sql);
+    $st->bindParam(":id", $args['target']);
+    $st->execute();
+    if ($st->rowCount() === 0) {
+        return $resp->withStatus(404);
+    }
+    return $resp->withStatus(204);
 });
