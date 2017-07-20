@@ -8,12 +8,14 @@ PUT     /todos/1            Updated todos with id=1
 DELETE  /todos/1            Delete todos with id=1
  */
 $app->get('/', function($request, $response) {
-	return $response->withBody('testing index');
+	$response->getBody()->write('Hello World!');
+	return $response;
 });
 
 
 $app->get('/todos', function ($req, $resp) {
-    return $resp->withBody('testing');
+    $resp->getBody()->write("hello from todos!");
+	return $resp;
 });
 
 $app->get('/todos/{id}', function ($req, $resp, $args) {

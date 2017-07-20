@@ -7,8 +7,8 @@ services:
             - 80:80
             - 443:443
         volumes:
-            - /Users/donbstringham/Sandbox/wsucs3620/final/src/public:/usr/share/nginx/html
-            - /Users/donbstringham/Sandbox/wsucs3620/final/src:/usr/share/nginx
+            - /home/parker/code/cs3620/final-prep/src/public:/usr/share/nginx/html
+            - /home/parker/code/cs3620/final-prep/src:/usr/share/nginx
         links:
             - mysql:mysql
             - redis:redis
@@ -21,7 +21,7 @@ services:
         ports:
             - 3306:3306
         volumes:
-            - /Users/donbstringham/Sandbox/wsucs3620/data/mysql:/data
+            - /home/parker/code/cs3620/data/mysql:/data
         environment:
             - MYSQL_ROOT_PASSWORD=changeme
             - MYSQL_DATABASE=cs3620
@@ -33,4 +33,4 @@ services:
         ports:
             - 6379:6379
         volumes:
-            - /Users/donbstringham/Sandbox/wsucs3620/data/redis:/data
+            - /home/parker/code/cs3620/data/redis:/data
