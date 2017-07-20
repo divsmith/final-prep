@@ -7,12 +7,13 @@ POST    /todos              Add new todos
 PUT     /todos/1            Updated todos with id=1
 DELETE  /todos/1            Delete todos with id=1
  */
+$app->get('/', function($request, $response) {
+	return $response->withBody('testing index');
+});
+
 
 $app->get('/todos', function ($req, $resp) {
-    $st = $this->db->prepare("SELECT * FROM tasks ORDER BY task");
-    $st->execute();
-    $todos = $st->fetchAll();
-    return $resp->withJson($todos);
+    return $resp->withBody('testing');
 });
 
 $app->get('/todos/{id}', function ($req, $resp, $args) {
